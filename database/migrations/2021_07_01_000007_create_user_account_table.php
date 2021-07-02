@@ -16,7 +16,7 @@ class CreateUserAccountTable extends Migration
         Schema::create('user_account', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('acount_id');
+            $table->unsignedBigInteger('account_id');
             $table->foreign('account_id')->references('id')->on('accounts');
             $table->decimal('amount', 12, 2);
             $table->boolean('is_company');          

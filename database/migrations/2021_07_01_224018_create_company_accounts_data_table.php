@@ -15,8 +15,6 @@ class CreateCompanyAccountsDataTable extends Migration
     {
         Schema::create('company_accounts_data', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->decimal('amount', 12, 2);
-            $table->boolean('is_company');
             $table->string('company_name', 60);
             $table->string('fantasy_name', 40);
             $table->bigInteger('account_id');
