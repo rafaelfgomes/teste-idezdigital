@@ -19,6 +19,8 @@ class CreateTransactionsTable extends Migration
             $table->decimal('value', 8, 2);
             $table->unsignedBigInteger('transaction_type_id');
             $table->foreign('transaction_type_id')->references('id')->on('transaction_types');
+            $table->unsignedBigInteger('account_id');
+            $table->foreign('account_id')->references('id')->on('accounts');
             $table->timestamps();
             $table->softDeletes();
         });
