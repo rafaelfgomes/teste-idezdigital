@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CompanyAccountData extends Model
 {
@@ -17,6 +18,16 @@ class CompanyAccountData extends Model
      * @var array
      */
     protected $fillable = [
-        'company_name', 'fantasy_name', 'account_id'
+        'uuid', 'company_name', 'fantasy_name', 'account_id'
     ];
+
+    /**
+     * Get the account of this account data
+     *
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function account(): BelongsTo
+    {
+        return $this->belongsTo(Account::class);
+    }
 }

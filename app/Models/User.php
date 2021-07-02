@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -27,4 +28,24 @@ class User extends Authenticatable
     protected $hidden = [
         'password'
     ];
+
+    /**
+     * Get the contacts that belongs to user
+     *
+     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function contacts(): BelongsToMany
+    {
+        return $this->belongsToMany(Contact::class, 'user_contact', 'user_id', 'contact_id');
+    }
+
+    /**
+     * Get the accounts that belongs to user
+     *
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function accounts(): HasMany
+    {
+        return $this->hasMany(Account::class);
+    }
 }

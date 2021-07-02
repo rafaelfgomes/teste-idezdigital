@@ -19,6 +19,10 @@ class CreateAccountsTable extends Migration
             $table->string('agency', 7);
             $table->string('number', 10);
             $table->char('digit', 1);
+            $table->decimal('amount', 12, 2);
+            $table->boolean('is_company_account');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('account_type_id');
             $table->foreign('account_type_id')->references('id')->on('account_types');
             $table->timestamps();

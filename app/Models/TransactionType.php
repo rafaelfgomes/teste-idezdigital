@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class TransactionType extends Model
 {
@@ -19,4 +20,14 @@ class TransactionType extends Model
     protected $fillable = [
         'name'
     ];
+
+    /**
+     * Get the transactions of specified type
+     *
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }
