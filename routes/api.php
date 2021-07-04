@@ -19,6 +19,9 @@ $apiVersion = 'v1';
 
 Route::prefix($apiVersion)->group(function () {
     Route::prefix('users')->group(function () {
+        Route::get('all', [ UserController::class, 'getAll' ]);
+        Route::get('{id}', [ UserController::class, 'getOne' ]);
+        Route::get('', [ UserController::class, 'getUsersByName' ]);
         Route::post('register', [ UserController::class, 'store' ]);
     });
 });

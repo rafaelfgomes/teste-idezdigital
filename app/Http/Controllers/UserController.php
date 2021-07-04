@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Traits\ApiResponser;
 use App\Services\UserService;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\User\StoreRequest;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    use ApiResponser;
+
     protected $userService;
 
     public function __construct(UserService $userService)
@@ -16,22 +20,23 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
+    public function getAll(): JsonResponse
+    {
+        return $this->successResponse($this->userService->getAll());
+    }
+
+    public function getUsersByName(Request $request): JsonResponse
+    {
+        return $this->successResponse($this->userService->getUsersByName($request->input('name')));
+    }
+
+    public function getOne(int $id): JsonResponse
+    {
+        return $this->successResponse($this->userService->getOne($id));
+    }
+
     public function store(StoreRequest $request): JsonResponse
     {
-        try {
-            $user = $this->userService->register($request->all());
-        } catch (\Exception $e) {
-            $error = [ 'error' => $e->getMessage(), 'code' => Response::HTTP_BAD_REQUEST ];
-            return new JsonResponse($error, Response::HTTP_BAD_REQUEST);
-        }
-
-        $data = [
-            'message' => 'Usuário cadastrado com sucesso',
-            'user' => $user,
-            'code' => Response::HTTP_CREATED,
-            'redirect' => env('APP_URL') . 'api/login'
-        ];
-
-        return new JsonResponse($data, Response::HTTP_CREATED);
+        return $this->successResponse($this->userService->register($request->all()), Response::HTTP_CREATED);
     }
 }
