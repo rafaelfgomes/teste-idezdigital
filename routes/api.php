@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
@@ -13,6 +14,8 @@ use App\Http\Controllers\UserController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::post('login', [ LoginController::class, 'login' ]);
 
 Route::prefix('users')->group(function () {
     Route::get('all', [ UserController::class, 'getAll' ]);
