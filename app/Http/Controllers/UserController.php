@@ -7,7 +7,8 @@ use App\Services\UserService;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\User\StoreRequest;
-use Illuminate\Http\Request;
+use App\Http\Requests\User\UpdateRequest;
+use App\Http\Requests\User\FilterNameRequest;
 
 class UserController extends Controller
 {
@@ -25,7 +26,7 @@ class UserController extends Controller
         return $this->successResponse($this->userService->getAll());
     }
 
-    public function getUsersByName(Request $request): JsonResponse
+    public function getUsersByName(FilterNameRequest $request): JsonResponse
     {
         return $this->successResponse($this->userService->getUsersByName($request->input('name')));
     }
@@ -38,5 +39,10 @@ class UserController extends Controller
     public function store(StoreRequest $request): JsonResponse
     {
         return $this->successResponse($this->userService->register($request->all()), Response::HTTP_CREATED);
+    }
+    
+    public function update(UpdateRequest $request, int $id): JsonResponse
+    {
+        return $this->successResponse($this->userService->update($request->all(), $id));
     }
 }

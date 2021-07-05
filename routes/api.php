@@ -1,9 +1,7 @@
 <?php
 
-use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('users')->group(function () {
     Route::get('all', [ UserController::class, 'getAll' ]);
     Route::get('{id}', [ UserController::class, 'getOne' ]);
-    Route::get('', [ UserController::class, 'getUsersByName' ]);
+    Route::get('/', [ UserController::class, 'getUsersByName' ]);
     Route::post('register', [ UserController::class, 'store' ]);
+    Route::put('{id}', [ UserController::class, 'update' ]);
 });
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {

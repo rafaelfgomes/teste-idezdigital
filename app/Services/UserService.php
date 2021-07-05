@@ -19,6 +19,12 @@ class UserService
     {
         $users = $this->userRepository->getAll()->toArray();
 
+        if (empty($users)) {
+            return [
+                'message' => 'Nenhum usuário encontrado'
+            ];
+        }
+
         return $users;
     }
 
@@ -61,6 +67,19 @@ class UserService
             'usuário' => [
                 'name' => $user['first_name'] . ' ' . $user['last_name'],
                 'document' => DocumentHelper::formatToResponse($user['document']),
+                'email' => $user['email']
+            ]
+        ];
+    }
+
+    public function update(array $data, int $id)
+    {
+        $user = $this->userRepository->update($data, $id);
+
+        return [
+            'message' => 'Usuário atualizado com sucesso',
+            'usuário' => [
+                'name' => $user['first_name'] . ' ' . $user['last_name'],
                 'email' => $user['email']
             ]
         ];

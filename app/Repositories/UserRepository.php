@@ -42,4 +42,11 @@ class UserRepository
 
         return User::create($userData);
     }
+
+    public function update(array $data, int $id): User
+    {
+        $user = User::find($id);
+
+        return tap($user)->update($data);
+    }
 }
