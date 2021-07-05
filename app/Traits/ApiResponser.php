@@ -46,4 +46,21 @@ trait ApiResponser
             'application/json'
         ]);
     }
+
+    /**
+     *
+     * Errors Response
+     *
+     * @param string $message
+     * @param int $code
+     * @return Illuminate\Http\JsonResponse
+     *
+     */
+    public function errorsResponse(array $error, int $code): JsonResponse
+    {
+        return new JsonResponse($error, $code, [
+            'Content-Type',
+            'application/json'
+        ]);
+    }
 }

@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Helpers\DocumentHelper;
 use App\Repositories\UserRepository;
-use Illuminate\Database\Eloquent\Collection;
 
 class UserService
 {
