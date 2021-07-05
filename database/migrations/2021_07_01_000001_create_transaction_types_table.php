@@ -17,6 +17,8 @@ class CreateTransactionTypesTable extends Migration
             $table->bigIncrements('id');
             $table->uuid('uuid');
             $table->string('name', 30);
+            $table->string('alias', 20);
+            $table->char('action', 3);
             $table->timestamps();
             $table->softDeletes();
         });

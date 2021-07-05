@@ -1,5 +1,7 @@
 <?php
 
+use Ramsey\Uuid\Uuid;
+use App\Models\AccountType;
 use Illuminate\Database\Seeder;
 
 class AccountTypesTableSeeder extends Seeder
@@ -11,6 +13,11 @@ class AccountTypesTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $data = [
+            [ 'uuid' => Uuid::uuid4(), 'name' => 'Empresarial', 'alias' => 'company' ],
+            [ 'uuid' => Uuid::uuid4(), 'name' => 'Pessoal', 'alias' => 'person' ]
+        ];
+
+        AccountType::insert($data);
     }
 }

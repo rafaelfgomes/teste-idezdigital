@@ -16,7 +16,8 @@ class CreateAccountTypesTable extends Migration
         Schema::create('account_types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->uuid('uuid');
-            $table->string('name', 20);
+            $table->string('name', 30);
+            $table->string('alias', 20);
             $table->timestamps();
             $table->softDeletes();
         });
