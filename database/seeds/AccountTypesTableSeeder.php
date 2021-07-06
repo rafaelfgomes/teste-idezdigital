@@ -18,6 +18,8 @@ class AccountTypesTableSeeder extends Seeder
             [ 'uuid' => Uuid::uuid4(), 'name' => 'Pessoal', 'alias' => 'person' ]
         ];
 
-        AccountType::insert($data);
+        foreach ($data as $values) {
+            AccountType::create($values);
+        }
     }
 }

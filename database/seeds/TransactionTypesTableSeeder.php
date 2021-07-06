@@ -21,6 +21,8 @@ class TransactionTypesTableSeeder extends Seeder
             [ 'uuid' => Uuid::uuid4(), 'name' => 'Compras (Crédito)', 'alias' => 'purchases', 'action' => 'sub' ]
         ];
 
-        TransactionType::insert($data);
+        foreach ($data as $values) {
+            TransactionType::create($values);
+        }
     }
 }

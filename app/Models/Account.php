@@ -3,11 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Account extends Model
 {
+    use SoftDeletes;
+    
     /**
      * @var string
      */
@@ -19,7 +23,7 @@ class Account extends Model
      * @var array
      */
     protected $fillable = [
-        'uuid', 'account', 'agency', 'number', 'digit', 'amount', 'is_company_account', 'user_id', 'account_type_id'
+        'uuid', 'account', 'agency', 'number', 'digit', 'initial_balance', 'current_balance', 'user_id', 'account_type_id'
     ];
 
     /**
@@ -50,5 +54,15 @@ class Account extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Associate comany data with an account
+     *
+     * @return Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function companyData(): HasOne
+    {
+        return $this->hasOne(CompanyAccountData::class);
     }
 }

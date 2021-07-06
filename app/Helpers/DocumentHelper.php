@@ -9,6 +9,10 @@ class DocumentHelper
         $documentSanitized = str_replace('-', '', $document);
         $documentSanitized = str_replace('.', '', $documentSanitized);
 
+        if (strlen($documentSanitized) > 11) {
+            $documentSanitized = str_replace('/', '', $documentSanitized);
+        }
+
         return $documentSanitized;
     }
 

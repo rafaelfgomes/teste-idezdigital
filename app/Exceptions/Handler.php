@@ -16,6 +16,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use LogicException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use TypeError;
 
@@ -103,7 +104,8 @@ class Handler extends ExceptionHandler
             $exception instanceof QueryException ||
             $exception instanceof BadMethodCallException ||
             $exception instanceof FatalErrorException ||
-            $exception instanceof ErrorException) {
+            $exception instanceof ErrorException ||
+            $exception instanceof LogicException) {
 
             return $this->errorResponse($exception->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }

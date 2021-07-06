@@ -38,7 +38,7 @@ class UserController extends Controller
 
     public function store(StoreRequest $request): JsonResponse
     {
-        return $this->successResponse($this->userService->register($request->all()), Response::HTTP_CREATED);
+        return $this->successResponse($this->userService->store($request->all()), Response::HTTP_CREATED);
     }
     
     public function update(UpdateRequest $request, int $id): JsonResponse

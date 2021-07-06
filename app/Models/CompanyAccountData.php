@@ -18,7 +18,7 @@ class CompanyAccountData extends Model
      * @var array
      */
     protected $fillable = [
-        'uuid', 'company_name', 'fantasy_name', 'account_id'
+        'uuid', 'company_name', 'fantasy_name', 'company_document', 'account_id'
     ];
 
     /**

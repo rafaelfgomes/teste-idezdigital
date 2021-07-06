@@ -58,17 +58,13 @@ class UserService
         return $users;
     }
 
-    public function register(array $data): array
+    public function store(array $data): array
     {
-        $user = $this->userRepository->register($data);
+        $user = $this->userRepository->store($data);
 
         return [
             'message' => 'Usuário cadastrado com sucesso',
-            'usuário' => [
-                'name' => $user['first_name'] . ' ' . $user['last_name'],
-                'document' => DocumentHelper::formatToResponse($user['document']),
-                'email' => $user['email']
-            ]
+            'usuário' => $user
         ];
     }
 

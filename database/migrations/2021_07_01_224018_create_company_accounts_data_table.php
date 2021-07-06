@@ -18,6 +18,7 @@ class CreateCompanyAccountsDataTable extends Migration
             $table->uuid('uuid');
             $table->string('company_name', 60);
             $table->string('fantasy_name', 40);
+            $table->string('company_document', 14);
             $table->bigInteger('account_id');
             $table->foreign('account_id')->references('id')->on('accounts');
             $table->timestamps();
