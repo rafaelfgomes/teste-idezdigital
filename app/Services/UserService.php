@@ -38,11 +38,7 @@ class UserService
             ];
         }
 
-        return [
-            'name' => $user['first_name'] . ' ' . $user['last_name'],
-            'document' => DocumentHelper::formatToResponse($user['document']),
-            'email' => $user['email']
-        ];
+        return $user->toArray();
     }
 
     public function getUsersByName(string $name): array
@@ -74,10 +70,17 @@ class UserService
 
         return [
             'message' => 'Usuário atualizado com sucesso',
-            'usuário' => [
-                'name' => $user['first_name'] . ' ' . $user['last_name'],
-                'email' => $user['email']
-            ]
+            'usuário' => $user
+        ];
+    }
+
+    public function delete(int $id): array
+    {
+        $user = $this->userRepository->delete($id);
+
+        return [
+            'message' => 'Usuário excluído com sucesso',
+            'usuário' => $user
         ];
     }
 }

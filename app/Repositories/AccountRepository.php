@@ -2,13 +2,14 @@
 
 namespace App\Repositories;
 
+use Error;
 use ErrorException;
+use App\Models\User;
 use Ramsey\Uuid\Uuid;
 use App\Models\Account;
+use App\Helpers\AccountHelper;
 use App\Helpers\DocumentHelper;
 use App\Models\CompanyAccountData;
-use App\Models\User;
-use Error;
 use Illuminate\Support\Facades\DB;
 
 class AccountRepository
@@ -27,8 +28,12 @@ class AccountRepository
         $accounts = $user->accounts()->get()->toArray();
 
         foreach ($accounts as $account) {
-            if ($account['account_type_id'] === intval($data['type'])) {
+            if (AccountHelper::typeExists($account, $data)) {
                 throw new Error('Usuário já possui esse tipo de conta cadastrada');
+            }
+
+            if (AccountHelper::accountExists($account, $data)) {
+                throw new Error('Esta conta já está criada e associada a um usuário');
             }
         }
 
@@ -79,5 +84,11 @@ class AccountRepository
         $accountUpdated = $this->store($data);
 
         return $accountUpdated;
+    }
+
+    public function delete(int $id): Account
+    {
+        $account = Account::find($id);
+        return $account->delete();
     }
 }

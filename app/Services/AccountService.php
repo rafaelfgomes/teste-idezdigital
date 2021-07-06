@@ -51,4 +51,14 @@ class AccountService
 
         return $account->toArray();
     }
+
+    public function delete(int $id): array
+    {
+        $account = $this->accountRepository->delete($id);
+
+        return [
+            'message' => 'Conta excluída com sucesso',
+            'usuário' => $account
+        ];
+    }
 }

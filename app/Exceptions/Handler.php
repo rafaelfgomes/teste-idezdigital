@@ -15,6 +15,7 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Eloquent\RelationNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use LogicException;
@@ -106,7 +107,9 @@ class Handler extends ExceptionHandler
             $exception instanceof BadMethodCallException ||
             $exception instanceof FatalErrorException ||
             $exception instanceof ErrorException ||
-            $exception instanceof LogicException) {
+            $exception instanceof LogicException ||
+            $exception instanceof RelationNotFoundException
+        ) {
 
             return $this->errorResponse($exception->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }

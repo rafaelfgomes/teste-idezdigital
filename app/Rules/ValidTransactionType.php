@@ -2,10 +2,10 @@
 
 namespace App\Rules;
 
-use App\Models\Account;
+use App\Models\TransactionType;
 use Illuminate\Contracts\Validation\Rule;
 
-class ValidAccount implements Rule
+class ValidTransactionType implements Rule
 {
     /**
      * Create a new rule instance.
@@ -26,10 +26,10 @@ class ValidAccount implements Rule
      */
     public function passes($attribute, $value)
     {
-        if (!Account::find($value)) {
+        if (!TransactionType::find($value)) {
             return false;
         }
-
+        
         return true;
     }
 
@@ -40,6 +40,6 @@ class ValidAccount implements Rule
      */
     public function message()
     {
-        return 'Conta informada não existe.';
+        return 'O tipo informado não existe';
     }
 }

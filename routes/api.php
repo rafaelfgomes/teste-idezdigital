@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
@@ -37,7 +38,7 @@ Route::prefix('contacts')->group(function () {
 });
 
 Route::prefix('transactions')->group(function() {
-    Route::get('');
+    Route::post('', [ TransactionController::class, 'store' ]);
 });
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {

@@ -15,19 +15,19 @@ class UserRepository
 {
     public function getAll(): Collection
     {
-        return User::all();
+        return User::with(['contacts', 'accounts' ])->get();
     }
 
     public function getOne(int $id): User
     {
-        $user = User::findOrFail($id);
+        $user = User::where('id', $id)->with(['contacts', 'accounts'])->first();
         
         return $user;
     }
 
     public function getUsersByName(string $name): Collection
     {
-        $users = User::where('first_name', 'LIKE', ucfirst($name) . '%')->get();
+        $users = User::where('first_name', 'LIKE', ucfirst($name) . '%')->with(['contacts', 'accounts'])->get();
         
         return $users;
     }
