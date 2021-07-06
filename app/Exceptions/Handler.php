@@ -7,6 +7,7 @@ use ErrorException;
 use ReflectionException;
 use BadMethodCallException;
 use App\Traits\ApiResponser;
+use Error;
 use Illuminate\Http\Response;
 use Psy\Exception\FatalErrorException;
 use Illuminate\Database\QueryException;
@@ -119,6 +120,10 @@ class Handler extends ExceptionHandler
 
         if ($exception instanceof TypeError) {
             return $this->errorResponse($exception->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+        if($exception instanceof Error) {
+            return $this->errorResponse($exception->getMessage(), Response::HTTP_BAD_REQUEST);
         }
 
         if (env('APP_DEBUG', false)) {

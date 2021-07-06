@@ -8,6 +8,7 @@ use App\Models\Account;
 use App\Helpers\DocumentHelper;
 use App\Models\CompanyAccountData;
 use App\Models\User;
+use Error;
 use Illuminate\Support\Facades\DB;
 
 class AccountRepository
@@ -21,9 +22,16 @@ class AccountRepository
 
     public function store(array $data): Account
     {
-        //dd($data);
-        // $a = DocumentHelper::sanitizeDocument($data['company']['company_document']);
-        // dd($a);
+        $user = User::where('email', $data['user'])->with('accounts')->first();
+
+        $accounts = $user->accounts()->get()->toArray();
+
+        foreach ($accounts as $account) {
+            if ($account['account_type_id'] === intval($data['type'])) {
+                throw new Error('Usuário já possui esse tipo de conta cadastrada');
+            }
+        }
+
         DB::beginTransaction();
 
         try {
@@ -34,7 +42,7 @@ class AccountRepository
                 'digit' => $data['digit'],
                 'initial_balance' => 0,
                 'current_balance' => 0,
-                'user_id' => User::where('email', $data['user'])->value('id'),
+                'user_id' => $user->id,
                 'account_type_id' => $data['type']
             ];
     
