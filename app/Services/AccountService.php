@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Account;
 use App\Repositories\AccountRepository;
 
 class AccountService
@@ -61,4 +62,6 @@ class AccountService
             'usuário' => $account
         ];
     }
+
+    
 }

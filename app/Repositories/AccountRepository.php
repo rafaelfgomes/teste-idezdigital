@@ -16,7 +16,7 @@ class AccountRepository
 {
     public function getOne(int $id): ?Account
     {
-        $account = Account::where('id', $id)->with('companyData')->with('transactions')->first();
+        $account = Account::where('id', $id)->with(['companyData', 'transactions'])->first();
 
         return $account;
     }
@@ -89,6 +89,25 @@ class AccountRepository
     public function delete(int $id): Account
     {
         $account = Account::find($id);
+
         return $account->delete();
+    }
+
+    public function getCurrentBalance(int $id): float
+    {
+        $account = Account::find($id);
+        
+        return $account->balance;
+    }
+    
+    public function checkIfAccountHasBalance(int $id, float $value): bool
+    {
+        $currentBalance = $this->getCurrentBalance($id);
+
+        if ($currentBalance < $value) {
+            return false;
+        }
+
+        return true;
     }
 }
