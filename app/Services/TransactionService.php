@@ -16,7 +16,12 @@ class TransactionService
     public function store(array $data): array
     {
         $transaction = $this->transactionRespository->store($data);
-        
-        return $transaction->toArray();
+
+        $response = [
+            'message' => 'Transação criada com sucesso',
+            'transaction' => $transaction->toArray()
+        ];
+
+        return $response;
     }
 }
