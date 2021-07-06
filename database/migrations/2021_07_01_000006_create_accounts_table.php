@@ -19,7 +19,7 @@ class CreateAccountsTable extends Migration
             $table->string('agency', 7);
             $table->string('number', 10);
             $table->char('digit', 1);
-            $table->decimal('current_balance', 12, 2);
+            $table->decimal('balance', 12, 2);
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('account_type_id');
